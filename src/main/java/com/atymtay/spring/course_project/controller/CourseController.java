@@ -15,9 +15,9 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/courses")
 @RequiredArgsConstructor
-public class MyController {
+public class CourseController {
 
 //    @Autowired
     private final LiveCourseServiceImpl liveCourseService;
@@ -29,24 +29,24 @@ public class MyController {
 //        this.courseService = courseService;
 //    }
 
-    @GetMapping("/courses/live")
+    @GetMapping("/live")
     public List<LiveCourse> getAllLiveCourses(){
         return liveCourseService.getAllCourses();
     }
 
-    @GetMapping("/courses/permanent")
+    @GetMapping("/permanent")
     public List<PermanentCourse> getAllPermanentCourses(){
         return permanentCourseService.getAllCourses();
     }
 
-    @GetMapping("/courses/live/{id}")
+    @GetMapping("/live/{id}")
     public Optional<LiveCourse> getLiveCourseById(
             @PathVariable Long id
     ){
         return liveCourseService.getCourse(id);
     }
 
-    @GetMapping("/courses/permanent/{id}")
+    @GetMapping("/permanent/{id}")
     public Optional<PermanentCourse> getPermanentCourseById(
             @PathVariable Long id
     ){
@@ -54,7 +54,7 @@ public class MyController {
     }
 
 
-    @PostMapping("/courses/live")
+    @PostMapping("/live")
     public String addLiveCourse(
               @RequestBody LiveCourse course
     ){
@@ -64,7 +64,7 @@ public class MyController {
     }
 
 
-    @PostMapping("/courses/permanent")
+    @PostMapping("/permanent")
     public String addPermanentCourse(
              @RequestBody PermanentCourse course
     ){

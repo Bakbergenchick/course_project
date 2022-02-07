@@ -17,7 +17,7 @@ public class CourseProjectApplication {
 
         System.out.printf("This '%s' implementation\n",liveCourseService.getMessage());
         System.out.printf("This '%s' implementation",permanentCourseService.getMessage());
-
+        System.out.println(liveCourseService.getAllCourses());
     }
 
 }
