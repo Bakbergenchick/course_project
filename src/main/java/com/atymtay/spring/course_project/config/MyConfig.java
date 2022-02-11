@@ -5,7 +5,7 @@ import org.springframework.context.annotation.*;
 
 @Configuration
 @ComponentScan("com.atymtay.spring.course_project.entities")
-//@PropertySource("classpath:myConfig.properties")
+@PropertySource("classpath:myConfig.properties")
 public class MyConfig {
 
     @Bean(initMethod = "initUser", destroyMethod = "destroyUser")
@@ -15,7 +15,6 @@ public class MyConfig {
         Users user = new Users();
 
        user.setName("Bakbergen");
-       user.setSurname("Atymtay");
        user.setEmail("sefsef@");
 
        return user;

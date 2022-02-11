@@ -1,44 +1,52 @@
 package com.atymtay.spring.course_project.service.impls;
 
 import com.atymtay.spring.course_project.entities.Users;
+import com.atymtay.spring.course_project.repository.DBManagerUsers;
 import com.atymtay.spring.course_project.repository.UsersRepository;
 import com.atymtay.spring.course_project.service.UsersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-@Service
-@Transactional
+
 public class UserServiceImpl implements UsersService {
 
-    private final UsersRepository usersRepository;
+//    private final UsersRepository usersRepository;
+
+    private DBManagerUsers dbManagerUsers;
+
 
     @Autowired
-    public UserServiceImpl(UsersRepository usersRepository) {
-        this.usersRepository = usersRepository;
+    public UserServiceImpl(@Qualifier("userDb") DBManagerUsers dbManagerUsers){
+        this.dbManagerUsers = dbManagerUsers;
+    }
+
+    public UserServiceImpl() {
+
     }
 
     @Override
     public List<Users> getAllUsers() {
-        return usersRepository.findAll();
+        return dbManagerUsers.getUserlist();
     }
 
     @Override
     public void saveUser(Users user) {
-        usersRepository.save(user);
+        dbManagerUsers.addUser(user);
     }
 
     @Override
     public Optional<Users> getUser(Long id) {
-        return usersRepository.findById(id);
+        return Optional.ofNullable(dbManagerUsers.getUser(id));
     }
 
     @Override
     public void deleteUser(Long id) {
-        usersRepository.deleteById(id);
+        dbManagerUsers.deleteUser(id);
     }
 
 

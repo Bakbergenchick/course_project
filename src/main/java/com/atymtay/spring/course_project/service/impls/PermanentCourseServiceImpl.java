@@ -15,8 +15,7 @@ import java.util.Optional;
 @Transactional
 public class PermanentCourseServiceImpl implements CourseService {
 
-//    @Autowired
-    private PermanentRepository permanentRepository;
+    private final PermanentRepository permanentRepository;
 
     @Value("${msg.permanentCourse}")
     private String message;
@@ -26,10 +25,6 @@ public class PermanentCourseServiceImpl implements CourseService {
         this.permanentRepository = permanentCourse;
     }
 
-//    @Autowired
-    public void setCourseRepository(PermanentRepository liveCourseRepository) {
-        this.permanentRepository = liveCourseRepository;
-    }
 
     public String getMessage() {
         return message;

@@ -3,6 +3,8 @@ package com.atymtay.spring.course_project.service.impls;
 import com.atymtay.spring.course_project.entities.LiveCourse;
 import com.atymtay.spring.course_project.repository.LiveCourseRepository;
 import com.atymtay.spring.course_project.service.CourseService;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -24,6 +26,7 @@ public class LiveCourseServiceImpl implements CourseService {
     public LiveCourseServiceImpl(LiveCourseRepository liveCourseRepository) {
         this.liveCourseRepository = liveCourseRepository;
     }
+
 
     public String getMessage() {
         return message;
