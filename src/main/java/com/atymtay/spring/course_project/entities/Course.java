@@ -1,12 +1,12 @@
 package com.atymtay.spring.course_project.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Data
+@Getter
+@Setter
+@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @MappedSuperclass
@@ -21,5 +21,11 @@ abstract class Course {
     private int price;
 
     private double rating;
+
+    public Course(String name, int price, double rating) {
+        this.name = name;
+        this.price = price;
+        this.rating = rating;
+    }
 
 }

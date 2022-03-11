@@ -1,23 +1,43 @@
 package com.atymtay.spring.course_project;
 
-import com.atymtay.spring.course_project.service.impls.LiveCourseServiceImpl;
-import com.atymtay.spring.course_project.service.impls.PermanentCourseServiceImpl;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
+import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
+@EnableAspectJAutoProxy
+@EnableJpaRepositories
+@EnableCaching
 public class CourseProjectApplication {
 
     public static void main(String[] args) {
-        ConfigurableApplicationContext context = SpringApplication.run(CourseProjectApplication.class, args);
+       SpringApplication.run(CourseProjectApplication.class, args);
 
-        LiveCourseServiceImpl liveCourseService = context.getBean(LiveCourseServiceImpl.class);
-        PermanentCourseServiceImpl permanentCourseService = context.getBean(PermanentCourseServiceImpl.class);
+//        UserServiceImpl userService = context.getBean( UserServiceImpl.class);
+//        LiveCourseServiceImpl2 liveCourseServiceImpl2 = context.getBean(LiveCourseServiceImpl2.class);
+//
+//        liveCourseServiceImpl2.addByRole("Bakbergen", new LiveCourse("GO", 345,
+//                3.5, "#45", "#345" ));
+//
+//        System.out.println(liveCourseServiceImpl2.getAllCourses());
 
-        System.out.printf("This '%s' implementation\n",liveCourseService.getMessage());
-        System.out.printf("This '%s' implementation",permanentCourseService.getMessage());
-        System.out.println(liveCourseService.getAllCourses());
+
+//        try{
+//            Optional<Users> users = userService.getUser(2L);
+//            System.out.println(users);
+//        } catch (Exception e){
+//            System.out.println("Exception type = ' " + e+ " '");
+//        }
+
+
+
+//        System.out.println(userService.getAllUsers());
+
+
+//        context.close();
     }
 
 }
