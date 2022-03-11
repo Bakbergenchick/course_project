@@ -31,7 +31,6 @@ public class Users {
 
     private String name;
 
-//    @Value("${surname.1}")
     private String surname;
 
     private String email;
@@ -55,12 +54,6 @@ public class Users {
     public void addPermanentCourseToUser(PermanentCourse permanentCourse){
         permanentCourses.add(permanentCourse);
     }
-
-
-
-
-
-
 
 
 

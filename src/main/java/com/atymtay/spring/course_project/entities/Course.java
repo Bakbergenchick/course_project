@@ -22,10 +22,5 @@ abstract class Course {
 
     private double rating;
 
-    public Course(String name, int price, double rating) {
-        this.name = name;
-        this.price = price;
-        this.rating = rating;
-    }
 
 }
