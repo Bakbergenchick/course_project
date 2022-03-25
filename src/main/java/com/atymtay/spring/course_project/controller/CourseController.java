@@ -3,10 +3,8 @@ package com.atymtay.spring.course_project.controller;
 import com.atymtay.spring.course_project.entities.LiveCourse;
 import com.atymtay.spring.course_project.entities.PermanentCourse;
 import com.atymtay.spring.course_project.entities.Topic;
-import com.atymtay.spring.course_project.service.impls.hibernateServiceImpls.HIbLiveGenerallServiceImpl;
-import com.atymtay.spring.course_project.service.impls.hibernateServiceImpls.HibPermanentGenerallServiceImpl;
-import com.atymtay.spring.course_project.service.impls.jdbcServiceImpls.JDBCPermanentCourseServiceImpl;
-import com.atymtay.spring.course_project.service.impls.jdbcServiceImpls.JDBCLiveCourseServiceImpl;
+import com.atymtay.spring.course_project.service.impls.jpaServiceImpls.LiveCourseServiceImpl;
+import com.atymtay.spring.course_project.service.impls.jpaServiceImpls.PermanentCourseServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,19 +16,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CourseController {
 
-//    @Autowired
-//    private final LiveCourseServiceImpl liveCourseService;
-//
-//    private final PermanentCourseServiceImpl permanentCourseService;
-
-//    private final JDBCLiveCourseServiceImpl jdbcLiveCourseService;
-//
-//    private final JDBCPermanentCourseServiceImpl jdbcPermanentCourseService;
-
-    private final HIbLiveGenerallServiceImpl hIbLiveCourseService;
-
-    private final HibPermanentGenerallServiceImpl hibPermanentCourseService;
-
+      private final LiveCourseServiceImpl liveCourseService;
+      private final PermanentCourseServiceImpl permanentCourseService;
 //    @Autowired
 //    public MyController(CourseService courseService) {
 //        this.courseService = courseService;
@@ -56,25 +43,22 @@ public class CourseController {
 
     @GetMapping("/live")
     public List<LiveCourse> getAllLiveCourses(){
-//        return jdbcLiveCourseService.getAllCourses();
 
-        return hIbLiveCourseService.getAll();
+        return liveCourseService.getAll();
     }
 
     @GetMapping("/permanent")
     public List<PermanentCourse> getAllPermanentCourses(){
-//        return jdbcPermanentCourseService.getAllCourses();
 
-        return hibPermanentCourseService.getAll();
+        return permanentCourseService.getAll();
     }
 
     @GetMapping("/live/{id}")
     public Optional<LiveCourse> getLiveCourseById(
             @PathVariable Long id
     ){
-//        return jdbcLiveCourseService.getCourse(id);
 
-        return hIbLiveCourseService.getById(id);
+        return liveCourseService.getById(id);
     }
 
     @GetMapping("/permanent/{id}")
@@ -83,7 +67,7 @@ public class CourseController {
     ){
 //        return jdbcPermanentCourseService.getCourse(id);
 
-        return hibPermanentCourseService.getById(id);
+        return permanentCourseService.getById(id);
     }
 
 
@@ -91,8 +75,8 @@ public class CourseController {
     public String addLiveCourse(
               @RequestBody LiveCourse course
     ){
-//        jdbcLiveCourseService.save((LiveCourse)course);
-        hIbLiveCourseService.save(course);
+        liveCourseService.save(course);
+
         return "Saved!";
     }
 
@@ -100,8 +84,7 @@ public class CourseController {
     public String addPermanentCourse(
              @RequestBody PermanentCourse course
     ){
-//        jdbcPermanentCourseService.save(course);
-        hibPermanentCourseService.save(course);
+        permanentCourseService.save(course);
 
         return "Saved!";
     }
@@ -111,8 +94,7 @@ public class CourseController {
             @RequestBody Topic topic,
             @PathVariable Long id
     ){
-//        hIbLiveCourseService.addTopicToPermanentCourse(topic, id);
-        hibPermanentCourseService.addTopicToPermanentCourse(topic, id);
+        permanentCourseService.addTopicToPermanentCourse(topic, id);
 
         return "Topic was added!";
     }
@@ -122,41 +104,18 @@ public class CourseController {
     public String removeTopicFromPermanentCourse(
             @PathVariable Long id
     ){
-//        hIbLiveCourseService.removeTopicFromPermanentCourse(id);
-        hibPermanentCourseService.removeTopicFromPermanentCourse(id);
+        permanentCourseService.removeTopicFromPermanentCourse(id);
 
         return "Topic was deleted!";
     }
-
-//    @PutMapping("/live/{name}")
-//    public String updateNameOfLiveCourse(
-//            @RequestBody LiveCourse course,
-//            @PathVariable String name
-//    ){
-//         course.setName(name);
-//         jdbcLiveCourseService.update(course);
-//
-//        return "Updated!";
-//    }
-
-//    @PutMapping("/permanent/{name}")
-//    public String updateNameOfPermanentCourse(
-//            @RequestBody PermanentCourse course,
-//            @PathVariable String name
-//    ){
-//        course.setName(name);
-//        jdbcPermanentCourseService.update(course);
-//
-//        return "Updated!";
-//    }
 
 
     @DeleteMapping("/live/{id}")
     public String deleteLiveCourse(
             @PathVariable Long id
     ){
-//        jdbcLiveCourseService.deleteCourse(id);
-        hIbLiveCourseService.deleteById(id);
+        liveCourseService.deleteById(id);
+
         return "Deleted!";
     }
 
@@ -164,8 +123,8 @@ public class CourseController {
     public String deletePermanentCourse(
             @PathVariable Long id
     ){
-//        jdbcPermanentCourseService.deleteCourse(id);
-        hibPermanentCourseService.deleteById(id);
+
+        permanentCourseService.deleteById(id);
 
         return "Deleted!";
     }
