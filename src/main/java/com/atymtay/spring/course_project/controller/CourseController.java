@@ -42,7 +42,7 @@ public class CourseController {
 //    }
 
     @GetMapping("/live")
-    public List<LiveCourse> getAllLiveCourses(){
+    public List<LiveCourse> getAllLiveCourses() throws Exception{
 
         return liveCourseService.getAll();
     }

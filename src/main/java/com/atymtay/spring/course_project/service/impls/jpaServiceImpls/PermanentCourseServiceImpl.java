@@ -12,8 +12,11 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.support.TransactionSynchronizationManager;
 
-import javax.transaction.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -35,11 +38,15 @@ public class PermanentCourseServiceImpl implements GenerallService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<PermanentCourse> getAll() {
+        System.out.println(TransactionSynchronizationManager.isActualTransactionActive());
+
         return permanentRepository.findAll();
     }
 
     @Override
+    @Transactional(propagation = Propagation.REQUIRED)
     public void save(Object object) {
         permanentRepository.save((PermanentCourse) object);
     }
@@ -50,6 +57,7 @@ public class PermanentCourseServiceImpl implements GenerallService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Optional<PermanentCourse> getById(Long id) {
         return Optional.of(permanentRepository.getById(id));
     }
@@ -59,6 +67,7 @@ public class PermanentCourseServiceImpl implements GenerallService {
         permanentRepository.deleteById(id);
     }
 
+    @Transactional
     public void addTopicToPermanentCourse(Topic topic, Long id){
 
         PermanentCourse permanentCourse = permanentRepository.getById(id);
@@ -78,6 +87,7 @@ public class PermanentCourseServiceImpl implements GenerallService {
         logger.info("Topic with id=" + topic.getId() + " was saved!");
     }
 
+    @Transactional(propagation = Propagation.MANDATORY)
     public void removeTopicFromPermanentCourse(Long id){
 
         Topic topic = topicRepository.getById(id);

@@ -4,13 +4,19 @@ import com.atymtay.spring.course_project.entities.PermanentCourse;
 import com.atymtay.spring.course_project.entities.Users;
 
 
+import com.atymtay.spring.course_project.exception.CustomErrorException;
 import com.atymtay.spring.course_project.repository.impls.jpaRepoImpls.PermanentRepository;
 import com.atymtay.spring.course_project.repository.impls.jpaRepoImpls.UsersRepository;
 import com.atymtay.spring.course_project.service.GenerallService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -31,8 +37,13 @@ public class UserServiceImpl implements GenerallService {
 
 
     @Override
+    @Transactional(readOnly = true)
     public List<Users> getAll() {
         return usersRepository.findAll();
+    }
+
+    public Page<Users> getPaged(int page, int size){
+        return usersRepository.findAll(PageRequest.of(page, size));
     }
 
     @Override
@@ -47,7 +58,16 @@ public class UserServiceImpl implements GenerallService {
 
     @Override
     public Optional<Users> getById(Long id) {
-        return Optional.of(usersRepository.getById(id));
+        Optional<Users> user = usersRepository.findById(id);
+
+        if(user.isPresent())
+            return user;
+
+        throw new CustomErrorException(
+                HttpStatus.INTERNAL_SERVER_ERROR,
+                "User with id=" + id + " not found",
+                (Long) id
+        );
     }
 
     @Override

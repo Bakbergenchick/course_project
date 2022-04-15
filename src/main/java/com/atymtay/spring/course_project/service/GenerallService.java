@@ -6,7 +6,7 @@ import java.util.Optional;
 
 public interface GenerallService<T> {
 
-    List<T> getAll();
+    List<T> getAll() throws Exception;
 
     void save(T object);
 
