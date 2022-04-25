@@ -23,4 +23,6 @@ abstract class Course {
     private double rating;
 
 
+
+
 }

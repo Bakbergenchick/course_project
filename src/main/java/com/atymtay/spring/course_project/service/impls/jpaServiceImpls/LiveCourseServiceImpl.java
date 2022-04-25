@@ -40,6 +40,7 @@ public class LiveCourseServiceImpl implements GenerallService {
         return liveCourseRepository.findAll();
     }
 
+
     @Override
     public void save(Object object) {
         liveCourseRepository.save((LiveCourse) object);

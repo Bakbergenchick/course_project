@@ -8,11 +8,14 @@ import com.atymtay.spring.course_project.exception.CustomErrorException;
 import com.atymtay.spring.course_project.repository.impls.jpaRepoImpls.PermanentRepository;
 import com.atymtay.spring.course_project.repository.impls.jpaRepoImpls.UsersRepository;
 import com.atymtay.spring.course_project.service.GenerallService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -23,6 +26,7 @@ import java.util.Set;
 
 @Service
 @Transactional
+@Slf4j
 public class UserServiceImpl implements GenerallService {
 
     private final UsersRepository usersRepository;
@@ -34,7 +38,6 @@ public class UserServiceImpl implements GenerallService {
         this.usersRepository = usersRepository;
         this.permanentRepository = permanentRepository;
     }
-
 
     @Override
     @Transactional(readOnly = true)
@@ -89,4 +92,6 @@ public class UserServiceImpl implements GenerallService {
         usersRepository.save(user);
 
     }
+
+
 }
